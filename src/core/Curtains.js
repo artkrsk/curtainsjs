@@ -124,7 +124,7 @@ export class Curtains {
                     this.container = container;
                 }
             }
-            else if(container instanceof Element) {
+            else if(container instanceof Element || typeof container === 'object') {
                 this.container = container;
             }
         }
@@ -297,6 +297,9 @@ export class Curtains {
      ***/
     render() {
         // always execute callback queue
+        if(!this.renderer || !this.renderer.nextRender) {
+            return;
+        }
         this.renderer.nextRender.execute();
 
         // If forceRender is true, force rendering this frame even if drawing is not enabled.
